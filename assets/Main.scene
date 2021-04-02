@@ -776,7 +776,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "84260d05-d7b4-40a1-8b88-f64dc34634c0@f9941"
+      "__uuid__": "424fb6b2-e4da-40ab-a618-f6c1df5014fc@f9941"
     },
     "_type": 0,
     "_fillType": 0,
@@ -1153,7 +1153,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "text",
+    "_name": "tips",
     "_objFlags": 0,
     "_parent": {
       "__id__": 36
@@ -1171,8 +1171,8 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -5.607,
-      "y": 91.575,
+      "x": 5.078,
+      "y": 128.667,
       "z": 0
     },
     "_lrot": {
@@ -1211,8 +1211,8 @@
     "_priority": 0,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 200,
-      "height": 50.4
+      "width": 360,
+      "height": 135.6
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1247,14 +1247,14 @@
       "b": 255,
       "a": 255
     },
-    "_string": "游戏结束",
+    "_string": "你被嗨鬼抓到了，光荣牺牲！",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 50,
-    "_fontSize": 50,
+    "_actualFontSize": 32,
+    "_fontSize": 32,
     "_fontFamily": "Arial",
-    "_lineHeight": 40,
-    "_overflow": 0,
+    "_lineHeight": 60,
+    "_overflow": 3,
     "_enableWrapText": true,
     "_font": null,
     "_isSystemFontUsed": true,
