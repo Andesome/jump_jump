@@ -20,7 +20,7 @@ export class Player extends Component {
   onLoad() {
     // 调整重力
     const grivity = PhysicsSystem2D.instance.gravity;
-    PhysicsSystem2D.instance.gravity = new Vec2(grivity.x, -320);
+    PhysicsSystem2D.instance.gravity = new Vec2(grivity.x, -3000);
 
     systemEvent.on(SystemEventType.TOUCH_START, this.onTouchStart, this);
     systemEvent.on(SystemEventType.TOUCH_END, this.onTouchEnd, this);
@@ -32,11 +32,13 @@ export class Player extends Component {
 
   // 碰撞开始
   onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D) {
-    systemEvent.off(SystemEventType.TOUCH_START, this.onTouchStart, this);
-    systemEvent.off(SystemEventType.TOUCH_END, this.onTouchEnd, this);
+    if (otherCollider.node.name !== 'ceiling') {
+      systemEvent.off(SystemEventType.TOUCH_START, this.onTouchStart, this);
+      systemEvent.off(SystemEventType.TOUCH_END, this.onTouchEnd, this);
 
-    this.node.emit('onGameOver');
-    this.canJump = true;
+      this.node.emit('onGameOver');
+      this.canJump = true;
+    }
   }
 
   // 点击开始

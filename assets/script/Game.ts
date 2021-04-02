@@ -16,9 +16,11 @@ export class Game extends Component {
   @property({ type: Label, tooltip: '分数' })
   score: Label = null!;
   @property({ type: Node, tooltip: '结果' })
+  welcome: Node = null!;
+  @property({ type: Node, tooltip: '结果' })
   result: Node = null!;
 
-  private len: number = 10;
+  private len: number = 12;
   private blocks: Node[] = [];
   private moveSpeed: number = 5;
   private blockSize: math.Size = null!;
@@ -26,15 +28,21 @@ export class Game extends Component {
   private groundSize: Readonly<math.Size> = null!;
   private status: Game_Status = Game_Status.Init;
   private _score: number = 0;
+  // 难度系统, 值越小越困难
+  private _difficulty: number = 3;
+  private timer: number = 0;
 
   onLoad() {
     this.groundPos = this.ground.getPosition();
     this.groundSize = this.ground.getComponent(UITransform)!.contentSize;
 
     this.initBlock();
+    this.calcDiffcult();
 
     this.player.on('onGameOver', () => {
       console.log('游戏结束');
+      this._difficulty = 3;
+      clearInterval(this.timer);
       this.status = Game_Status.Ended;
       this.result.active = true;
     });
@@ -44,14 +52,38 @@ export class Game extends Component {
     // [3]
   }
 
-  reset() {
+  newGame() {
+    this._score = 0;
+    this.status = Game_Status.Init;
+    this.score.string = '分数：0';
+    this.welcome.active = false;
+    this.result.active = false;
+
+    this.player.getComponent(Player)?.onLoad();
+    this.calcDiffcult();
+    this.initBlock();
+  }
+
+  restart() {
     this._score = 0;
     this.status = Game_Status.Init;
     this.score.string = '分数：0';
     this.result.active = false;
 
     this.player.getComponent(Player)?.onLoad();
+    this.calcDiffcult();
     this.initBlock();
+  }
+
+  calcDiffcult() {
+    this.timer = setInterval(() => {
+      this._difficulty -= 0.2;
+
+      if (this._difficulty <= 0) {
+        this._difficulty = 0;
+        clearInterval(this.timer);
+      }
+    }, 1000);
   }
 
   // 随机生成正负号
@@ -61,16 +93,15 @@ export class Game extends Component {
 
   generatePostion(prePos: Vec3) {
     const winSize = this.node.getComponent(UITransform)?.contentSize!;
-    const random = Math.random() * 3 + 2.5;
-    const randomY = Math.random() * 3 + 2;
+    const random = Math.random() * 3 + this._difficulty;
+    const randomY = Math.random() * 2 + 1.5;
     const intervalX = this.blockSize.width * random;
     const intervalY = this.blockSize.height * randomY * this.generateSign();
     const x = prePos.x + intervalX;
     let y = Math.max(prePos.y + intervalY, this.groundPos.y);
     y = Math.min(y, winSize.height / 2);
 
-    // console.log('intervalY:', prePos.y, intervalY, winSize.height / 2);
-    console.log('x,y', x, y);
+    console.log('intervalX:', this._difficulty, intervalX, intervalY);
     return new Vec3(x, y, 0);
   }
 
