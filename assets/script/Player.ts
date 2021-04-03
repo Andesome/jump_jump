@@ -20,7 +20,7 @@ export class Player extends Component {
   onLoad() {
     // 调整重力
     const grivity = PhysicsSystem2D.instance.gravity;
-    PhysicsSystem2D.instance.gravity = new Vec2(grivity.x, -3000);
+    PhysicsSystem2D.instance.gravity = new Vec2(grivity.x, -300);
 
     systemEvent.on(SystemEventType.TOUCH_START, this.onTouchStart, this);
     systemEvent.on(SystemEventType.TOUCH_END, this.onTouchEnd, this);

@@ -1386,7 +1386,7 @@
       "b": 255,
       "a": 255
     },
-    "_string": "规则: 点击屏幕让角色不被\n障碍物捕获",
+    "_string": "规则: 点击屏幕跳跃，别让\n科特被嗨鬼抓到",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 25,
